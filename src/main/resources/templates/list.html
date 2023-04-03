@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="css/style.css"
+	th:href="@{/css/style.css}">
+<title>Lista de Tarefas</title>
+</head>
+<body>
+	<h1>Lista de Tarefas</h1>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">Início</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/create">Cadastro</a></li>
+					<li class="nav-item"><a class="nav-link" href="/list">Listagem</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">Nome</th>
+				<th scope="col">Data Execução</th>
+				<th scope="col">!!!</th>
+				<th scope="col">???</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-th-each="tarefa : ${tarefas}">
+				<td data-th-text="${tarefa.id}">...</td>
+				<td data-th-text="${tarefa.nome}">...</td>
+				<td data-th-text="${{tarefa.data_execucao}}">...</td>
+				<td><a th:href="@{'/edit/'+${tarefa.id}}"
+					class="btn btn-warning">Editar</a></td>
+				<td><button type="button" class="btn btn-danger btn-sm"
+						data-bs-toggle="modal"
+						th:attr="data-bs-target='#remover_'+${tarefa.id}">Remover</button>
+					<div class="modal fade" th:id="remover_+${tarefa.id}" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLongTitle">Confirmação</h5>
+									<button type="button" class="close" data-bs-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<p>Tem certeza que quer remover?</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Não</button>
+									<a type="button" class="btn btn-warning"
+										th:href="@{'/delete/'+${tarefa.id}}">Sim</a>
+								</div>
+							</div>
+						</div>
+					</div></td>
+			</tr>
+
+		</tbody>
+	</table>
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- <div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Apagar!</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div> -->
+				<div class="modal-body">Tem certeza que deseja a exclusão?</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+					<!-- <button type="button" class="btn btn-danger">Apagar</button> -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Modal -->
+
+	<a href="/create" class="btn btn-primary">Novo Cadastro</a>
+</body>
+</html>
